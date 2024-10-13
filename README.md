@@ -161,8 +161,10 @@
         return J_e
 **Result**
  - 2 cases
+
 ![](https://cdn.discordapp.com/attachments/999479443745669173/1295054498145763348/image.png?ex=670d40fd&is=670bef7d&hm=18267566d6b3c46e6e678ad0925b6841bf8c63f8eb4421012babcadd34738b63&=)
 ![](https://cdn.discordapp.com/attachments/999479443745669173/1295054498431111198/image.png?ex=670d40fd&is=670bef7d&hm=e18ad75c51bcd934b877fdc628844482163c76f479c341427dc4e889c95db13e&=)
+
 ### 2.  Question 2
 **How to** 
 ทดลองใช้จุด Singularity ของหุ่นยนต์ UR5 ว่าสามารถตรวจจับได้หรือไม่
@@ -191,6 +193,7 @@
 
 **Result**
 ![](https://cdn.discordapp.com/attachments/999479443745669173/1295054727511277642/image.png?ex=670d4133&is=670befb3&hm=08f26ca11f9826540043fb71fc964f49da2ee0dc546a67df04877d1de03d981e&=)
+
 ### 3. Question 3
 **How to**
 ทดลองคำนวณแรงบิดที่ข้อต่อโดยใช้ Jacobian Matrix ของหุ่นยนต์ UR5
