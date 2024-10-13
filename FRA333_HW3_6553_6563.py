@@ -12,17 +12,6 @@ import sympy as sp
 #code here
 
 def endEffectorJacobianHW3(q:list[float])->list[float]:
-    
-    """
-    Steps 
-    1. Create empty matrix
-    2. Find Jacobian for 1 joint at a time
-        given {j, j_v, j_w, r_i, p_i} as components for current joint
-        - J_v[i] = (r_i*[0,0,1]) x (p_e - p_i) -> 3x1
-        - J_w[i] = r_i                         -> 3x1
-    3. Put each joint's jacobian together
-        - J = [J_v;J_w]     -> 6x1 matrix
-    """
     # Call for Input
     R, P, R_e, p_e = FKHW3(q)
 

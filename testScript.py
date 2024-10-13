@@ -12,18 +12,15 @@ from spatialmath import SE3
 from HW3_utils import FKHW3
 from FRA333_HW3_6553_6563 import endEffectorJacobianHW3 ,checkSingularityHW3 ,computeEffortHW3
 #===========================================<ตรวจคำตอบข้อ 1>====================================================#
+# define
 d_1 = 0.0892;a_2 = -0.425;a_3 = -0.39243;d_4 = 0.109;d_5 = 0.093;d_6 = 0.082;c_neg90 = 0;s_neg90 = -1
+End = np.array([[c_neg90, 0, s_neg90, a_3 - d_6],
+                    [0, 1, 0, -d_5],
+                    [-s_neg90, 0, c_neg90, d_4],
+                    [0, 0, 0, 1]])  # Add the last row for homogeneous transformation
+End_EF = SE3(End)
 
-
-End_P = np.array([a_3 + (-d_6), -d_5 , d_4]) 
-End_R = np.array([[ c_neg90,     0,  s_neg90], 
-                  [ 0,           1,         0],
-                  [-(s_neg90),   0,  c_neg90]])
-End = np.eye(4)  
-End[0:3, 3] = End_P 
-End[0:3, 0:3] = End_R 
-End_EF = SE3(End) 
-
+# build
 rbot = rtb.DHRobot(
     [
         rtb.RevoluteMDH(a= 0, d= d_1, offset=3.14),
@@ -34,16 +31,16 @@ rbot = rtb.DHRobot(
     name = "RRR_Rbot"
 )
 
+# test
 def TestJacobianHW3(q:list[float])->list[float]:
     J_e = rbot.jacob0(q) #คำนวณหา jacobian matrix โดยใช้ jacob0
     #print('\n')
     return J_e
 
-print('################# code ข้อ 1 #################')
-print(endEffectorJacobianHW3([0,0,0]))
-print('################# ตรวจคำตอบข้อ 1 #################')
-print(TestJacobianHW3([0,0,0]))
-
+q = [0.0,-3.14/2,-0.2]
+print(q)
+TestJacobianHW3(q)
+endEffectorJacobianHW3(q)
 #print(abs(endEffectorJacobianHW3([0.0,-3.14/2,-0.2]))-abs(TestJacobianHW3([0.0,-3.14/2,-0.2])))
 #code here
 #print(TestJacobianHW3([0,0,0]))
@@ -72,19 +69,6 @@ def test_2():
 # #code here
 
 #==============================================================================================================#
-#print(test_2())
+#test_2()
 
 
-
-
-#def get_input():
-    # q1 = float(input("q1: "))  # Joint 1-3 angle
-    # q2 = float(input("q2: "))  
-    # q3 = float(input("q3: "))  
-    # Mx = float(input("Mx: "))  # Moment Vector xyz
-    # My = float(input("My: "))  
-    # Mz = float(input("Mz: "))  
-    # Fx = float(input("Fx: "))  # Force Vector xyz
-    # Fy = float(input("Fy: "))  
-    # Fz = float(input("Fz: "))  
-    #return [[q1, q2, q3], [Mx, My, Mz, Fx, Fy, Fz]]
