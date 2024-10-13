@@ -21,75 +21,22 @@ from FRA333_HW3_6553_6563 import endEffectorJacobianHW3 ,checkSingularityHW3 ,co
 #==============================================================================================================#
 
 
-def get_joint_configuration():
-    """
-    Prompt the user to input joint angles (q1, q2, q3) in radians.
-    
-    In robotic systems, the joint configuration (q) represents the angles of the joints 
-    that define the position and orientation of the end effector. Here, we assume a 3-DOF system.
-    
-    Returns:
-    A list of 3 joint angles [q1, q2, q3] in radians.
-    """
-    print("Please input the joint angles (q1, q2, q3) in radians.")
+def get_input():
     q1 = float(input("q1: "))  # Joint 1 angle
     q2 = float(input("q2: "))  # Joint 2 angle
     q3 = float(input("q3: "))  # Joint 3 angle
-    return [q1, q2, q3]
-
-# Function to get user input for wrench w (the forces and torques acting on the end effector)
-def get_wrench():
-    """
-    Prompt the user to input the wrench (forces and torques) applied at the end effector.
-    
-    The wrench is composed of moments (torques) [Mx, My, Mz] and forces [Fx, Fy, Fz]. 
-    These values represent the external forces and torques that need to be translated 
-    into joint torques through the Jacobian matrix.
-    
-    Returns:
-    A list of 6 values [Mx, My, Mz, Fx, Fy, Fz] representing the wrench.
-    """
-    print("Please input the wrench (moment and force) components (Mx, My, Mz, Fx, Fy, Fz).")
-    Mx = float(input("Mx: "))  # Moment around x-axis
-    My = float(input("My: "))  # Moment around y-axis
-    Mz = float(input("Mz: "))  # Moment around z-axis
-    Fx = float(input("Fx: "))  # Force along x-axis
-    Fy = float(input("Fy: "))  # Force along y-axis
-    Fz = float(input("Fz: "))  # Force along z-axis
-    return [Mx, My, Mz, Fx, Fy, Fz]
-
-# Helper function to format and print matrices nicely
-def print_matrix(matrix, name):
-    """
-    Print the matrix in a formatted way to improve readability.
-
-    Args:
-    matrix: The matrix to be printed.
-    name: The label or name of the matrix (e.g., 'Jacobian Matrix').
-    """
-    print(f"{name}:")
-    for row in matrix:
-        formatted_row = "  ".join([f"{val:10.5f}" for val in row])
-        print(f"[{formatted_row}]")
-    print()
+    Mx = float(input("Mx: "))  
+    My = float(input("My: "))  
+    Mz = float(input("Mz: "))  
+    Fx = float(input("Fx: "))  
+    Fy = float(input("Fy: "))  
+    Fz = float(input("Fz: "))  
+    return [[q1, q2, q3], [Mx, My, Mz, Fx, Fy, Fz]]
 
 def test_HW3():
-    """
-    Main testing function to compute the Jacobian, check for singularity, and compute joint efforts
-    for a given set of joint configurations (q) and wrench (w).
-    
-    This function is designed to interact with the user to get the joint angles and wrench components
-    and use the previously implemented functions to calculate the Jacobian matrix, check singularity, and compute efforts.
-    
-    The test is split into three main sections corresponding to:
-    1. Jacobian calculation (ข้อ 1)
-    2. Singularity check (ข้อ 2)
-    3. Joint effort calculation (ข้อ 3)
-    """
-    
     # Get user input for joint angles and wrench
-    q = get_joint_configuration()  # Obtain joint configuration from the user
-    w = get_wrench()  # Obtain wrench components from the user
+    q = get_input()[0]  # Obtain joint configuration from the user
+    w = get_wrench()[1]  # Obtain wrench components from the user
 
     # Call the functions to compute the Jacobian, singularity check, and joint efforts
     J_e = np.array(endEffectorJacobianHW3(q))  # Compute the 6x3 Jacobian matrix for the given joint angles
