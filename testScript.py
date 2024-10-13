@@ -39,7 +39,7 @@ rbot = rtb.DHRobot(
     name = "RRR_Rbot"
 )
 # เรียกใช้ฟังก์ชัน Jacobian ของ Robotic Toolsbox
-def TestJacobianHW3(q:list[float])->list[float]:
+def test_1(q:list[float])->list[float]:
 
     J_e = rbot.jacob0(q) #คำนวณหา jacobian matrix โดยใช้ jacob0
     return J_e
@@ -61,10 +61,10 @@ def test_2():
 
 #==============================================================================================================#
 #===========================================<ตรวจคำตอบข้อ 3>====================================================#
-# def test_3():
-#     q = get_input()[0]
-#     effort = computeEffortHW3(q,w)
-# #code here
+def test_3():
+    q = get_input()[0]
+    effort = computeEffortHW3(q,w)
+#code here
 
 #==============================================================================================================#
 
@@ -72,7 +72,7 @@ q = [0,-3.14,-0.2]
 # q = [0.0,-3.14/2,-0.2]
 print(f'q : {q}')
 print(f'Answer 1 : {endEffectorJacobianHW3(q)}')
-print(f'Test 1 : {TestJacobianHW3(q)}')
+print(f'Test 1 : {test_1(q)}')
 print('\nTest 2')
 test_2()
 
