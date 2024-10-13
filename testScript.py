@@ -21,18 +21,15 @@ d_6 = 0.082
 c_minus_90 = 0
 s_minus_90 = -1
 
-# หา End effector และสร้าง rbot
-# คำนวณตำแหน่งและการหมุนของ end-effector
-End_P = np.array([a_3 + (-d_6), -d_5 , d_4]) # ตำแหน่งของ end-effector
-End_R = np.array([[c_minus_90,      0,  s_minus_90], # เมทริกซ์การหมุน
+End_P = np.array([a_3 + (-d_6), -d_5 , d_4]) 
+End_R = np.array([[c_minus_90,      0,  s_minus_90], 
                   [0,               1,           0],
                   [-(s_minus_90),   0,  c_minus_90]])
-End = np.eye(4)  # สร้างเมทริกซ์ขนาด 4x4
-End[0:3, 3] = End_P # กำหนดส่วนของตำแหน่งในเมทริกซ์
-End[0:3, 0:3] = End_R # กำหนดส่วนของการหมุนในเมทริกซ์
-End_EF = SE3(End) # กำหนด end effector ในรูปแบบ SE3 (การแปลงHomogeneous)
-# print('End_EF is \n', End_EF)
-# กำหนดโมเดลหุ่นยนต์โดยใช้ DH Parameter
+End = np.eye(4)  
+End[0:3, 3] = End_P 
+End[0:3, 0:3] = End_R 
+End_EF = SE3(End) 
+
 rbot = rtb.DHRobot(
     [
         rtb.RevoluteMDH(a= 0, d= d_1, offset=3.14),
@@ -50,7 +47,8 @@ def TestJacobianHW3(q:list[float])->list[float]:
 
     #print('\n')
     return J_e
-
+print(TestJacobianHW3([0,0,0]))
+print(endEffectorJacobianHW3([0,0,0]))
 #code here
 #print(TestJacobianHW3([0,0,0]))
 
@@ -78,7 +76,7 @@ def test_2():
 # #code here
 
 #==============================================================================================================#
-print(test_2())
+#print(test_2())
 
 
 
