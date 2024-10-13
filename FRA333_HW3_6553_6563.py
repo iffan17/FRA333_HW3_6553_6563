@@ -69,7 +69,7 @@ def computeEffortHW3(q:list[float], w:list[float])->list[float]:
     
     # compute : tau = J_v^T * force_vector
     tau = np.dot(J_v.T, force_vector)
-
+    
     return tau[:,0].tolist() #flatten matrix for output
 
 #==============================================================================================================#

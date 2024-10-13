@@ -41,7 +41,8 @@ rbot = rtb.DHRobot(
 # เรียกใช้ฟังก์ชัน Jacobian ของ Robotic Toolsbox
 def test_1(q:list[float])->list[float]:
 
-    J_e = rbot.jacob0(q) #คำนวณหา jacobian matrix โดยใช้ jacob0
+    # หา Jacobian ด้วย Robotic Toolsbox
+    J_e = rbot.jacob0(q) 
     return J_e
 #==============================================================================================================#
 #===========================================<ตรวจคำตอบข้อ 2>====================================================#
@@ -53,7 +54,6 @@ def test_2():
     print(f"\nNormal Config  : {checkSingularityHW3([0,10,0])}")
     # test with UR5 possible singularity Config.
     # in this case : Elbow Down, Shoulder and Elbow Joint Co-linearity
-    # with extra -0.2 on q3
     print(f"Elbow Down Config : {checkSingularityHW3([3.14,-3.14/2,-0.2])}")
     print(f"Shoulder and Elbow Joint Co-linearity : {checkSingularityHW3([0,-3.14/2,-0.2])}")
     pass
@@ -61,19 +61,36 @@ def test_2():
 
 #==============================================================================================================#
 #===========================================<ตรวจคำตอบข้อ 3>====================================================#
-def test_3():
-    q = get_input()[0]
-    effort = computeEffortHW3(q,w)
+
 #code here
+def test_3(q, w):
+    # หา Jacobian ด้วย Robotic Toolsbox
+    J = rbot.jacob0(q) 
+    J_v = J[:3][:3]
+
+    # get force vector from w matrix (lower half of w)
+    w = np.array(w).reshape(6,1) # input is 1x6
+    force_vector = w[3:, :]
+    
+    # compute : tau = J_v^T * force_vector
+    tau = np.dot(J_v.T, force_vector)
+    return tau[:,0].tolist()
 
 #==============================================================================================================#
 
-q = [0,-3.14,-0.2]
+q = [0,0,0]
+w = [0,1,0,0,0,1]
+#w = [12,23,34,45,56,67]
 # q = [0.0,-3.14/2,-0.2]
 print(f'q : {q}')
 print(f'Answer 1 : {endEffectorJacobianHW3(q)}')
 print(f'Test 1 : {test_1(q)}')
 print('\nTest 2')
 test_2()
-
 print('\nTest 3')
+print(f'q : {q}\nw : {w}')
+print(f'Answer 3 : {computeEffortHW3(q, w)}')
+print(f'Test 3 : {test_3(q, w)}')
+
+
+
