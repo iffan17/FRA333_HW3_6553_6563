@@ -11,7 +11,6 @@ import sympy as sp
 #=============================================<คำตอบข้อ 1>======================================================#
 #code here
 
-
 def endEffectorJacobianHW3(q:list[float])->list[float]:
     
     """
@@ -34,16 +33,14 @@ def endEffectorJacobianHW3(q:list[float])->list[float]:
 
     # Loop for each joint
     for i in range(N):
-        # get rotational matrix
-        r_i = np.dot(R[:,:,i], [0,0,1]).T 
         
-        # get linear vector
-        p_i = P[:,i]
-        d = p_e - p_i # compute vector from i to e
+        r_i = np.dot(R[:,:,i], [0,0,1]).T   # get rotational matrix
+        p_i = P[:,i]                        # get linear vector
+        d = p_e - p_i                       # compute vector from i to e
 
         # compute & update value 
-        J_v[:,i] = np.cross(r_i,d)  #linear J    (3xN)
-        J_w[:,i] = r_i              #angular J  (3xN)
+        J_v[:,i] = np.cross(r_i,d)  #linear J       (3xN)
+        J_w[:,i] = r_i              #angular J      (3xN)
 
     # Merge linear and angular to full Jacobian
     J = np.vstack((J_v,J_w)) 
@@ -89,7 +86,7 @@ def computeEffortHW3(q:list[float], w:list[float])->list[float]:
 #==============================================================================================================#
 
 # print("J_e :")
-# print(endEffectorJacobianHW3([0,10,0]))
+print(endEffectorJacobianHW3([0.0,-3.14/2,-0.2]))
 # print(f"Normal case : {checkSingularityHW3([0,10,0])}")
 
 # print(f"Elbow Down Configuration : {checkSingularityHW3([0,-3.14/2,-0.2])}")

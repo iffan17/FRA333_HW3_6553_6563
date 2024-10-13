@@ -12,19 +12,13 @@ from spatialmath import SE3
 from HW3_utils import FKHW3
 from FRA333_HW3_6553_6563 import endEffectorJacobianHW3 ,checkSingularityHW3 ,computeEffortHW3
 #===========================================<ตรวจคำตอบข้อ 1>====================================================#
-d_1 = 0.0892
-a_2 = -0.425
-a_3 = -0.39243
-d_4 = 0.109
-d_5 = 0.093
-d_6 = 0.082
-c_minus_90 = 0
-s_minus_90 = -1
+d_1 = 0.0892;a_2 = -0.425;a_3 = -0.39243;d_4 = 0.109;d_5 = 0.093;d_6 = 0.082;c_neg90 = 0;s_neg90 = -1
+
 
 End_P = np.array([a_3 + (-d_6), -d_5 , d_4]) 
-End_R = np.array([[c_minus_90,      0,  s_minus_90], 
-                  [0,               1,           0],
-                  [-(s_minus_90),   0,  c_minus_90]])
+End_R = np.array([[ c_neg90,     0,  s_neg90], 
+                  [ 0,           1,         0],
+                  [-(s_neg90),   0,  c_neg90]])
 End = np.eye(4)  
 End[0:3, 3] = End_P 
 End[0:3, 0:3] = End_R 
@@ -39,16 +33,18 @@ rbot = rtb.DHRobot(
     tool = End_EF,
     name = "RRR_Rbot"
 )
+
 def TestJacobianHW3(q:list[float])->list[float]:
-    print('################# ตรวจคำตอบข้อ 1 #################')
-
     J_e = rbot.jacob0(q) #คำนวณหา jacobian matrix โดยใช้ jacob0
-    print("This RRR robot Jacobian is: \n",J_e) 
-
     #print('\n')
     return J_e
-print(TestJacobianHW3([0,0,0]))
+
+print('################# code ข้อ 1 #################')
 print(endEffectorJacobianHW3([0,0,0]))
+print('################# ตรวจคำตอบข้อ 1 #################')
+print(TestJacobianHW3([0,0,0]))
+
+#print(abs(endEffectorJacobianHW3([0.0,-3.14/2,-0.2]))-abs(TestJacobianHW3([0.0,-3.14/2,-0.2])))
 #code here
 #print(TestJacobianHW3([0,0,0]))
 
