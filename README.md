@@ -5,7 +5,8 @@
 
 ## Function Details
 ### 1.  endEffectorJacobianHW3
-**Function :** 
+
+**Function** 
 
     endEffectorJacobianHW3(q:list[float])->list[float]
 
@@ -53,7 +54,8 @@
     return J
 
 ### 2. checkSingularityHW3
-**Function :** 
+
+**Function** 
 
     checkSingularityHW3(q:list[float])->bool
 
@@ -270,6 +272,16 @@
     print(f'q : {q}\nw : {w}')
     print(f'Answer 3 : {computeEffortHW3(q, w)}')
     print(f'Test 3 : {test_3(q, w)}')
+
+## Summary
+
+จากผลการทดสอบที่ได้ จะเห็นได้ว่า 
+
+- Test 1 : output ของโปรแกรมที่ออกแบบ ตรงกับ ฟังก์ชัน Jacobian ของ robotic toolsbox 
+- Test 2 : ผลลัพท์ Singularity เป็นไปตามที่คาดการณ์ และตรงกับความเป็นจริงของหุ่นต์ UR5
+- Test 3 : output ของโปรแกรมที่ออกแบบ ตรงกับ ฟังก์ชัน Jacobian ของ robotic toolsbox
+
+จึงสรุปว่าโปรแกรมทั้ง 3 ข้อมีความถูกต้อง
 
 ## Members
 - Siriprapha Uppapark 65340500053
