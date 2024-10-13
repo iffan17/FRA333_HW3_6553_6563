@@ -61,7 +61,7 @@ def checkSingularityHW3(q:list[float])->bool:
 
     # Find det(J_v)
     det_j = np.linalg.det(J_v)
- 
+    abs(det_j)
     # Compare with epsilon = 0.001
     if abs(det_j) < 0.001 : 
         return True # is singularity
@@ -88,10 +88,14 @@ def computeEffortHW3(q:list[float], w:list[float])->list[float]:
 
 #==============================================================================================================#
 
-print("J_e :")
-print(endEffectorJacobianHW3([0,10,0]))
-print(f"\n Singularity : {checkSingularityHW3([0,10,0])}")
-print("\nEffort (Tau) :")
-print(computeEffortHW3([0,10,0],[0,0,0,0,50,0]))
+# print("J_e :")
+# print(endEffectorJacobianHW3([0,10,0]))
+# print(f"Normal case : {checkSingularityHW3([0,10,0])}")
+
+# print(f"Elbow Down Configuration : {checkSingularityHW3([0,-3.14/2,-0.2])}")
+# print(f"Shoulder and Elbow Joint Co-linearity : {checkSingularityHW3([0,-3.14/2,-0.2])}")
+
+# print("\nEffort (Tau) :")
+# print(computeEffortHW3([0,10,0],[0,0,0,0,50,0]))
 
 
