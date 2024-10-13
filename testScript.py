@@ -12,15 +12,29 @@ from spatialmath import SE3
 from HW3_utils import FKHW3
 from FRA333_HW3_6553_6563 import endEffectorJacobianHW3 ,checkSingularityHW3 ,computeEffortHW3
 #===========================================<ตรวจคำตอบข้อ 1>====================================================#
-# define
-d_1 = 0.0892;a_2 = -0.425;a_3 = -0.39243;d_4 = 0.109;d_5 = 0.093;d_6 = 0.082;c_neg90 = 0;s_neg90 = -1
-End = np.array([[c_neg90, 0, s_neg90, a_3 - d_6],
-                    [0, 1, 0, -d_5],
-                    [-s_neg90, 0, c_neg90, d_4],
-                    [0, 0, 0, 1]])  # Add the last row for homogeneous transformation
-End_EF = SE3(End)
+# กำหนดตัวแปรที่จะใช้งาน
+d_1 = 0.0892
+a_2 = -0.425
+a_3 = -0.39243
+d_4 = 0.109
+d_5 = 0.093
+d_6 = 0.082
+c_minus_90 = 0
+s_minus_90 = -1
 
-# build
+# หา End effector และสร้าง rbot
+# คำนวณตำแหน่งและการหมุนของ end-effector
+End_P = np.array([a_3 + (-d_6), -d_5 , d_4]) # ตำแหน่งของ end-effector
+End_R = np.array([[c_minus_90,      0,  s_minus_90], # เมทริกซ์การหมุน
+                  [0,               1,           0],
+                  [-(s_minus_90),   0,  c_minus_90]])
+End = np.eye(4)  # สร้างเมทริกซ์ขนาด 4x4
+End[0:3, 3] = End_P # กำหนดส่วนของตำแหน่งในเมทริกซ์
+End[0:3, 0:3] = End_R # กำหนดส่วนของการหมุนในเมทริกซ์
+End_EF = SE3(End) # กำหนด end effector ในรูปแบบ SE3 (การแปลงHomogeneous)
+# print('End_EF is \n', End_EF)
+
+# กำหนดโมเดลหุ่นยนต์โดยใช้ DH Parameter
 rbot = rtb.DHRobot(
     [
         rtb.RevoluteMDH(a= 0, d= d_1, offset=3.14),
@@ -30,17 +44,25 @@ rbot = rtb.DHRobot(
     tool = End_EF,
     name = "RRR_Rbot"
 )
+# FK = rbot.fkine(q)
+# Check rbot
+# print(rbot)
 
-# test
+#=============================================<ตรวจคำตอบข้อ 1>======================================================#
 def TestJacobianHW3(q:list[float])->list[float]:
+
+
     J_e = rbot.jacob0(q) #คำนวณหา jacobian matrix โดยใช้ jacob0
-    #print('\n')
+    print("This RRR robot Jacobian is: \n",J_e) 
+
+    print('\n')
     return J_e
 
 q = [0.0,-3.14/2,-0.2]
-print(q)
-TestJacobianHW3(q)
-endEffectorJacobianHW3(q)
+print(f'q : {q}')
+print(f'Answer 1 : {endEffectorJacobianHW3([0.0,-3.14/2,-0.2])}')
+print(f'Test 1 : {TestJacobianHW3(q)}')
+#endEffectorJacobianHW3(q)
 #print(abs(endEffectorJacobianHW3([0.0,-3.14/2,-0.2]))-abs(TestJacobianHW3([0.0,-3.14/2,-0.2])))
 #code here
 #print(TestJacobianHW3([0,0,0]))

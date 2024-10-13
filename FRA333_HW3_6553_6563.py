@@ -75,7 +75,10 @@ def computeEffortHW3(q:list[float], w:list[float])->list[float]:
 #==============================================================================================================#
 
 # print("J_e :")
-print(endEffectorJacobianHW3([0.0,-3.14/2,-0.2]))
+# q = [0.0,-3.14/2,-0.2]
+# print(f'q : {q}')
+# print(f'Answer 1 : {endEffectorJacobianHW3([0.0,-3.14/2,-0.2])}')
+
 # print(f"Normal case : {checkSingularityHW3([0,10,0])}")
 
 # print(f"Elbow Down Configuration : {checkSingularityHW3([0,-3.14/2,-0.2])}")
